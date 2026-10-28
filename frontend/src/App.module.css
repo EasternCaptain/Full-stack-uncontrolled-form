@@ -1,0 +1,47 @@
+.container {
+  display: flex; 
+  flex-direction: column; 
+  gap: 10px; 
+  align-items: center; 
+  justify-content: center; 
+  background-color: purple;  
+  width: 70%; 
+  height: 90vh; 
+  border-radius: 15px; 
+  margin: 10px; 
+} 
+.inputContainer {
+  display: flex; 
+  flex-direction: column; 
+  margin: 10px 0; 
+  gap: 10px; 
+} 
+.buttonContainer {
+  display: flex; 
+  align-items: last baseline;
+  justify-content:end; 
+} 
+.labelHeader {
+  font-size: 1.2rem; 
+  font-weight: light;  
+} 
+.inputField {
+  font-size: 1.5rem; 
+  border-radius: 10px; 
+  border: none; 
+  padding: 10px; 
+}
+.submitButton {
+  font-size: 1.5rem; 
+  font-weight: normal; 
+  background-color: rgb(49, 93, 188); 
+  border: none; 
+  padding: 10px; 
+  border-radius: 10px; 
+  margin: 5px;
+  cursor: pointer; 
+  color: black; 
+} 
+.submitButton:hover {
+  background-color: rgba(49, 93, 188, 0.629)
+}

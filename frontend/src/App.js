@@ -1,6 +1,7 @@
 import { useRef } from 'react'; 
 import { useSelector, useDispatch } from 'react-redux'; 
 import { useEffect } from 'react'; 
+import styles from './App.module.css'; 
 
 export default function App() {
   const nameRef = useRef(''); 
@@ -59,24 +60,32 @@ export default function App() {
   } 
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Uncontrolled Form</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name </label>
-          <input type="text" ref={nameRef} placeholder='Enter your name' required />
+        <div className={styles.inputContainer}>
+          <label className={styles.labelHeader}>Name </label>
+          <input type="text" ref={nameRef} placeholder='Enter your name' required 
+          className={styles.inputField}
+          />
         </div>
-        <div>
-          <label>Email</label>
-          <input type="email" ref={emailRef} placeholder="Enter your email @example.com" required />
+        <div  className={styles.inputContainer}>
+          <label className={styles.labelHeader}>Email</label>
+          <input type="email" ref={emailRef} placeholder="Enter your email" required 
+          className={styles.inputField}
+          />
         </div>
-        <div>
-          <label>Country </label>
-          <input type="text" ref={countryRef} placeholder="Enter your country" required />
+        <div  className={styles.inputContainer}>
+          <label className={styles.labelHeader}>Country </label>
+          <input type="text" ref={countryRef} placeholder="Enter your country" required 
+          className={styles.inputField}
+          />
         </div>
-        <button type="submit">Submit</button>
+        <div className={styles.buttonContainer}>
+          <button type="submit" className={styles.submitButton}>Submit</button>
+        </div>
       </form>
-      <div>
+      {/* <div>
         {
           formData.map((item) => {
             return (
@@ -88,7 +97,7 @@ export default function App() {
             )
           })
         }
-      </div>
+      </div> */}
     </div>
     
   )
