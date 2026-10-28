@@ -1,5 +1,6 @@
 import { useRef } from 'react'; 
 import { useSelector, useDispatch } from 'react-redux'; 
+import { useEffect } from 'react'; 
 
 export default function App() {
   const nameRef = useRef(''); 
@@ -7,7 +8,32 @@ export default function App() {
   const countryRef = useRef('') 
 
   const formData = useSelector((state) => state.formData ) 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();  
+
+  useEffect(() => {
+    const  fetchData = async () => {
+      try {
+        const response  = await fetch('/api/forms')
+        const data = await response.json() 
+        dispatch({type: 'LOAD', payload: data})
+      } catch (error) {
+        console.error(error) 
+      }
+    }
+    fetchData() 
+  }, [dispatch])
+
+  const addData = async (data) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/forms', {
+        method: "POST", 
+        headers: {"Content-Type": 'applciation/json' }, 
+        body: data 
+      })
+    } catch(error) {
+      console.error(error)
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
@@ -18,18 +44,18 @@ export default function App() {
       country: countryRef.current.value 
     }
     if (!(
-      nameRef.current.value === '' && 
-      emailRef.current.value === '' && 
-      countryRef.current.value === '' 
-    )) {
+      data.name === '' && 
+      data.name === '' && 
+      data.country === '' 
+    )) { 
+      addData(data) 
       dispatch({type: "ADD", payload: data })
-      alert(JSON.stringify(data))
+      alert(JSON.stringify(data)); 
     }
     
     nameRef.current.value =''; 
     emailRef.current.value =''; 
     countryRef.current.value =''; 
-
   } 
 
   return (
@@ -38,15 +64,15 @@ export default function App() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name </label>
-          <input type="text" ref={nameRef} placeholder='Enter your name'/>
+          <input type="text" ref={nameRef} placeholder='Enter your name' required />
         </div>
         <div>
           <label>Email</label>
-          <input type="email" ref={emailRef} placeholder="Enter your email @example.com"/>
+          <input type="email" ref={emailRef} placeholder="Enter your email @example.com" required />
         </div>
         <div>
           <label>Country </label>
-          <input type="text" ref={countryRef} placeholder="Enter your country"/>
+          <input type="text" ref={countryRef} placeholder="Enter your country" required />
         </div>
         <button type="submit">Submit</button>
       </form>

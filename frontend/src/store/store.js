@@ -11,6 +11,12 @@ const formReducer = (state = initialState, action) => {
                 ...state, 
                 formData: [ ...state.formData, action.payload ]
             }
+        case "LOAD": 
+            return {
+                ...state, 
+                formData: action.payload 
+            
+        }
         default: 
             return state; 
     } 
