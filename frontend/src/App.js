@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { useRef } from 'react'; 
 
-function App() {
+export default function App() {
+  const nameRef = useRef(''); 
+  const emailRef = useRef('') 
+  const countryRef = useRef('') 
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+
+    const data = {
+      name: nameRef.current.value, 
+      email: emailRef.current.value, 
+      country: countryRef.current.value 
+    }
+
+    alert(JSON.stringify(data))
+    nameRef.current.value =''; 
+    emailRef.current.value =''; 
+    countryRef.current.value =''; 
+
+  } 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Uncontrolled Form</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Name </label>
+          <input type="text" ref={nameRef} placeholder='Enter your name'/>
+        </div>
+        <div>
+          <label>Email</label>
+          <input type="email" ref={emailRef} placeholder="Enter your email @example.com"/>
+        </div>
+        <div>
+          <label>Country </label>
+          <input type="text" ref={countryRef} placeholder="Enter your country"/>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
-  );
+    
+  )
 }
-
-export default App;
