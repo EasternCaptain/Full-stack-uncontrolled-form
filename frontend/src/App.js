@@ -1,9 +1,13 @@
 import { useRef } from 'react'; 
+import { useSelector, useDispatch } from 'react-redux'; 
 
 export default function App() {
   const nameRef = useRef(''); 
   const emailRef = useRef('') 
   const countryRef = useRef('') 
+
+  const formData = useSelector((state) => state.formData ) 
+  const dispatch = useDispatch(); 
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
@@ -13,8 +17,15 @@ export default function App() {
       email: emailRef.current.value, 
       country: countryRef.current.value 
     }
-
-    alert(JSON.stringify(data))
+    if (!(
+      nameRef.current.value === '' && 
+      emailRef.current.value === '' && 
+      countryRef.current.value === '' 
+    )) {
+      dispatch({type: "ADD", payload: data })
+      alert(JSON.stringify(data))
+    }
+    
     nameRef.current.value =''; 
     emailRef.current.value =''; 
     countryRef.current.value =''; 
@@ -39,6 +50,19 @@ export default function App() {
         </div>
         <button type="submit">Submit</button>
       </form>
+      <div>
+        {
+          formData.map((item) => {
+            return (
+              <div>
+                <p>Name: {item.name}</p>
+                <p>Email: {item.email}</p>
+                <p>Country: {item.countr}</p>
+              </div>
+            )
+          })
+        }
+      </div>
     </div>
     
   )
