@@ -14,7 +14,10 @@ export default function App() {
   useEffect(() => {
     const  fetchData = async () => {
       try {
-        const response  = await fetch('/api/forms')
+        const response  = await fetch('http://localhost:5000/api/forms', {
+          method: "GET", 
+          headers: {"Content-Type": "application/json" }
+        })
         const data = await response.json() 
         dispatch({type: 'LOAD', payload: data})
       } catch (error) {
@@ -24,17 +27,6 @@ export default function App() {
     fetchData() 
   }, [dispatch])
 
-  const addData = async (data) => {
-    try {
-      const response = await fetch('http://localhost:5000/api/forms', {
-        method: "POST", 
-        headers: {"Content-Type": 'applciation/json' }, 
-        body: data 
-      })
-    } catch(error) {
-      console.error(error)
-    }
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
@@ -49,7 +41,12 @@ export default function App() {
       data.name === '' && 
       data.country === '' 
     )) { 
-      addData(data) 
+
+      fetch("http://localhost:5000/api/forms", {
+        method: "POST", 
+        headers: {"Content-Type": "application/json"}, 
+        body: JSON.stringify(data)
+      })
       dispatch({type: "ADD", payload: data })
       alert(JSON.stringify(data)); 
     }
@@ -85,7 +82,7 @@ export default function App() {
           <button type="submit" className={styles.submitButton}>Submit</button>
         </div>
       </form>
-      {/* <div>
+      <div>
         {
           formData.map((item) => {
             return (
@@ -97,7 +94,7 @@ export default function App() {
             )
           })
         }
-      </div> */}
+      </div>
     </div>
     
   )
