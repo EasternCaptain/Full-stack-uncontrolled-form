@@ -82,19 +82,6 @@ export default function App() {
           <button type="submit" className={styles.submitButton}>Submit</button>
         </div>
       </form>
-      <div>
-        {
-          formData.map((item) => {
-            return (
-              <div>
-                <p>Name: {item.name}</p>
-                <p>Email: {item.email}</p>
-                <p>Country: {item.countr}</p>
-              </div>
-            )
-          })
-        }
-      </div>
     </div>
     
   )
